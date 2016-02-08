@@ -11,11 +11,14 @@ TODOs
  	- add "ditto" feature
  	- if token is today's DOW, return ord of 1wk from today
  	- add case insensitivity
+ 	- have different todo lists
+ 	- have completed task history, per list
 
 Reference: https://docs.python.org/2/library/datetime.html
 '''
 
 from datetime import date
+import string
 
 dayOfWeek = ['monday','tuesday','wednesday',
 			'thursday','friday','saturday','sunday','today','tomorrow']
@@ -130,7 +133,7 @@ while response not in ['exit', 'quit']:
 		f = open('list.txt','r')
 		show_list = f.readlines()
 		f.close()
-		tbr = ' '.join(tokens[1:])
+		tbr = string.lower(' '.join(tokens[1:]))
 		match = None
 		for e in show_list:
 			if tbr in e:
@@ -140,7 +143,7 @@ while response not in ['exit', 'quit']:
 			print 'No tasks match "%s".'%tbr
 		else:
 			for e in show_list:
-				if tbr in e:
+				if tbr in string.lower(e):
 					if raw_input('Remove "%s" (Y/N)? '%getDesc(e))[0] in ['Y','y']:
 						f = open('list.txt','w')
 						for line in show_list:
