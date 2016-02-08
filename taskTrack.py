@@ -5,12 +5,11 @@
 
 '''
 TODOs
- 	- let user edit settings from within shell
  	- Removal matches don't prompt chronologically.
- 	- add "ditto" feature
- 	- if token is today's DOW, return ord of 1wk from today
  	- have different todo lists
  	- have completed task history, per list
+ 	- if token is today's DOW, return ord of 1wk from today
+ 	- add "ditto" feature
 
 Reference: https://docs.python.org/2/library/datetime.html
 '''
@@ -31,6 +30,7 @@ def dispHelp():
 	print ' - "help": show this message'
 	print ' - "rm/rem(ove)/del(ete)/did desc": removes a task matching desc'
 	print ' - "show": display all tasks'
+	print ' - "set setting value": update setting to value (True/False)'
 	print ''
 
 def loadSettings():
@@ -42,6 +42,12 @@ def loadSettings():
 		[s,v] = line.split()
 		d[s] = v
 	return d
+
+def updateSettings():
+	f = open('settings.txt','w')
+	for s in settings:
+		f.write('%s %s\n'%(s,settings[s]))
+	f.close()
 
 def getDesc(line):
 	return ' '.join(line.split()[:-1])
@@ -114,6 +120,20 @@ while response not in ['exit', 'quit']:
 		dispHelp()
 	elif len(tokens) == 1 and tokens[0] not in ['show']:
 		dispHelp()
+	elif tokens[0] == 'set':
+		if len(tokens) != 3:
+			dispHelp()
+		else:
+			setting = tokens[-2]
+			setVal = tokens[-1]
+			if setting not in settings:
+				print 'Setting \"%s\" not found.'%setting
+			elif setVal not in ['True','False']:
+				print 'Settings are either True or False.'
+			else:
+				settings[setting] = setVal
+				updateSettings()
+				print '\"%s\" is now %s.'%(setting,setVal)
 	elif tokens[0] == 'add':
 		f = open('list.txt','a')
 		if tokens[-1] in dayOfWeek:
