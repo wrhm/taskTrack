@@ -10,6 +10,7 @@ TODOs
  	- have completed task history, per list
  	- if token is today's DOW, return ord of 1wk from today
  	- add "ditto" feature
+ 	- get alerts for "busy days"
 
 Reference: https://docs.python.org/2/library/datetime.html
 '''
@@ -25,7 +26,7 @@ monthAbb = ['jan','feb','mar','apr','may','jun',
 def dispHelp():
 	print ''
 	print 'Valid commands:'
-	print ' - "add task [, day]": add a new task to the list'
+	print ' - "add task [, day]/[monthAbbr dateNum]": add a new task to the list'
 	print ' - "exit"/"quit": exit the shell'
 	print ' - "help": show this message'
 	print ' - "rm/rem(ove)/del(ete)/did desc": removes a task matching desc'
