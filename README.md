@@ -1,2 +1,2 @@
 # taskTrack
-A command-line version of Wunderlist, with added customizations.
+A command-line tool inspired by Wunderlist, with added customizations.
