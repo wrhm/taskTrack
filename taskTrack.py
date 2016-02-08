@@ -6,11 +6,9 @@
 '''
 TODOs
  	- let user edit settings from within shell
- 	- Can't add duedates beyond a week from today
  	- Removal matches don't prompt chronologically.
  	- add "ditto" feature
  	- if token is today's DOW, return ord of 1wk from today
- 	- add case insensitivity
  	- have different todo lists
  	- have completed task history, per list
 
@@ -22,6 +20,8 @@ import string
 
 dayOfWeek = ['monday','tuesday','wednesday',
 			'thursday','friday','saturday','sunday','today','tomorrow']
+monthAbb = ['jan','feb','mar','apr','may','jun',
+			'jul','aug','sep','oct','nov','dec']
 
 def dispHelp():
 	print ''
@@ -45,6 +45,11 @@ def loadSettings():
 
 def getDesc(line):
 	return ' '.join(line.split()[:-1])
+
+def moNum(mon):
+	if mon not in monthAbb:
+		return None
+	return monthAbb.index(mon)+1
 
 def showTasks():
 	f = open('list.txt','r')
@@ -114,14 +119,13 @@ while response not in ['exit', 'quit']:
 		if tokens[-1] in dayOfWeek:
 			ordinal = nextDOW(tokens)
 			f.write('%s %d\n'%(' '.join(tokens[1:-1]),ordinal))
-		# MDY
-		# elif len(tokens) >= 5:
-		# 	print '### Feature in Dev ###'
-		# 	mdy = mdy(tokens[-3:])
-		# 	if mdy != None:
-		# 		(m,d,y) = mdy
-		# 		ordinal = date(y,m,d).toordinal()
-		# 		f.write('%s %d\n'%(' '.join(tokens[1:-2]),ordinal))
+		# month day, e.g. mar 7
+		elif len(tokens) >= 4:
+			print '### Feature in Dev ###'
+
+			(m,d,y) = (moNum(tokens[-2]),int(tokens[-1]),date.today().year)
+			ordinal = date(y,m,d).toordinal()
+			f.write('%s %d\n'%(' '.join(tokens[1:-2]),ordinal))
 		else:
 			f.write('%s %d\n'%(' '.join(tokens[1:]),0))
 		f.close()
