@@ -1,0 +1,14 @@
+notes.txt
+
+BUILD PYTHON TODO MANAGER (shell-based)
+	- Time-sorted assignments
+	- Time-nonsorted investigations
+
+Goal: Make a todo manager like Wunderlist that lets me:
+	- add task
+		- optionally have due date
+	- view task list, sorted by
+		- due date
+	- mark task as complete
+
+First step: shell

@@ -1,0 +1,3 @@
+showOnAdd True
+showOnStart True
+showOnRem True
